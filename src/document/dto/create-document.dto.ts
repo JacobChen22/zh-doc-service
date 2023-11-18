@@ -7,4 +7,10 @@ export class CreateDocumentDto {
 
     @Allow()
     readonly body: string;
+
+    @IsNotEmpty()
+    readonly creatorId: number;
+
+    @IsNotEmpty()
+    readonly updaterId: number;
 }

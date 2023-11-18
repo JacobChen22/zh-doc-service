@@ -9,9 +9,12 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  name  String? @db.VarChar(255)
-  email String  @unique @db.VarChar(255)
+  id     Int     @id @default(autoincrement())
+  name   String? @db.VarChar(255)
+  email  String  @unique @db.VarChar(255)
+  encPwd String? @db.VarChar(255)
+
+  @@index([email])
 }
 
 model Document {
@@ -20,4 +23,6 @@ model Document {
   body      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  creatorId Int
+  updaterId Int
 }
