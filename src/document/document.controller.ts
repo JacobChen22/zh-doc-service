@@ -1,7 +1,8 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards} from '@nestjs/common';
 import {DocumentService} from './document.service';
 import {CreateDocumentDto} from './dto/create-document.dto';
 import {UpdateDocumentDto} from './dto/update-document.dto';
+import JwtAuthGuard from "../auth/jwt-auth-guard.config";
 
 @Controller('document')
 export class DocumentController {
@@ -28,6 +29,7 @@ export class DocumentController {
     return this.documentService.update(id, updateDocumentDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.documentService.remove(id);

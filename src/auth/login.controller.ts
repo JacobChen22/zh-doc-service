@@ -10,7 +10,6 @@ export class LoginController {
 
     @Post()
     login(@Body() body: LoginDto) {
-        const {email, password} = body;
-        return this.authService.signIn(email, password);
+        return this.authService.login(body);
     }
 }

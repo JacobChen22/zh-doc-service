@@ -1,6 +1,6 @@
 import {compareSync, hashSync} from "bcrypt";
 
-const saltRounds = 5;
+const saltRounds = 10;
 
 export function encrypt(plainText: string) {
     return hashSync(plainText, saltRounds);
