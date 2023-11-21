@@ -26,3 +26,11 @@ model Document {
   creatorId Int
   updaterId Int
 }
+
+model Space {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  body      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
