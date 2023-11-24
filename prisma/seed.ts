@@ -13,29 +13,84 @@ async function main() {
         },
     })
 
-    const doc1 = await prisma.document.upsert({
-        where: {title: 'Test1 for zh doc in prisma'},
+    const space1 = await prisma.space.upsert({
+        where: {name: 'ZH Doc'},
         update: {},
         create: {
-            title: 'Test1 document',
-            body: 'Document1 content',
-            creatorId: 1,
-            updaterId: 1
+            name: 'ZH Doc',
+            body: 'Welcome to ZH Doc\' space.\n' +
+                '\n' +
+                'This is the space welcome page, you can add some description for the space in this page.\n' +
+                '\n' +
+                'Here you can edit your space info, and will auto save.'
+        },
+    })
+
+    const doc1 = await prisma.document.upsert({
+        where: {title: 'Tutorial'},
+        update: {},
+        create: {
+            title: 'Tutorial',
+            body: '',
+            parentDocId: null,
+            space: {
+                connect: {id: space1.id}
+            },
+            type: 'FOLDER',
+            creatorId: user1.id,
+            updaterId: user1.id
         }
     });
 
     const doc2 = await prisma.document.upsert({
-        where: {title: 'Test2 for zh doc in prisma'},
+        where: {title: 'How to apply space?'},
         update: {},
         create: {
-            title: 'Test2 document',
-            body: 'Document2 content',
-            creatorId: 1,
-            updaterId: 1
+            title: 'How to apply space?',
+            body: '',
+            type: 'FILE',
+            parentDocId: doc1.id,
+            space: {
+                connect: {id: space1.id}
+            },
+            creatorId: user1.id,
+            updaterId: user1.id
         }
     });
 
-    console.log({user1, doc1, doc2});
+    const doc3 = await prisma.document.upsert({
+        where: {title: 'How to create new document?'},
+        update: {},
+        create: {
+            title: 'How to create new document?',
+            body: '',
+            type: 'FILE',
+            parentDocId: doc1.id,
+            space: {
+                connect: {id: space1.id}
+            },
+            creatorId: user1.id,
+            updaterId: user1.id
+        }
+    });
+
+    const doc4 = await prisma.document.upsert({
+        where: {title: 'About'},
+        update: {},
+        create: {
+            title: 'About',
+            body: 'This demo deployed on Vercel. Thanks again.',
+            type: 'FILE',
+            parentDocId: null,
+            space: {
+                connect: {id: space1.id}
+            },
+            creatorId: user1.id,
+            updaterId: user1.id
+        }
+    });
+
+    console.log({user1, doc2, doc3});
 }
 
 main().catch((e) => {
