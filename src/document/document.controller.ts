@@ -34,4 +34,9 @@ export class DocumentController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.documentService.remove(id);
   }
+
+  @Get('space/:id')
+  findSpaceDocTree(@Param('id', ParseIntPipe) spaceId: number) {
+    return this.documentService.findSpaceDocTree(spaceId);
+  }
 }
