@@ -1,4 +1,4 @@
-import {Body, Controller, Post} from "@nestjs/common";
+import {Body, Controller, Get, Param, ParseIntPipe, Post} from "@nestjs/common";
 import {UserService} from "./user.service";
 import {SignUpDto} from "./dto/sign-up.dto";
 
@@ -12,5 +12,9 @@ export class UserController {
         return this.userService.signUp(signupDto);
     }
 
+    @Get(':id')
+    findOne(@Param('id', ParseIntPipe) id: number) {
+        return this.userService.findOneById(id);
+    }
 
 }

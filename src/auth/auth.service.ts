@@ -12,7 +12,7 @@ export default class AuthService {
     }
 
     async validateUser(email: string, password: string) {
-        const user = await this.userService.findOne(email)
+        const user = await this.userService.findOneByEmail(email)
         if (!user) {
             throw new NotFoundException('User email not found');
         }
